@@ -1,0 +1,217 @@
+# {{ .ProjectName }}
+
+{{ if .Description }}{{ .Description }}{{ else }}A {{ .PrimaryLang }} project{{ end }}
+
+{{ if .Config.IncludeBadges }}
+![License](https://img.shields.io/badge/license-{{ .License }}-blue.svg)
+{{ if .PrimaryLang }}![Language](https://img.shields.io/badge/language-{{ .PrimaryLang }}-green.svg){{ end }}
+{{ if .Version }}![Version](https://img.shields.io/badge/version-{{ .Version }}-orange.svg){{ end }}
+{{ end }}
+
+{{ if .Config.IncludeTOC }}
+## Table of Contents
+
+- [About](#about)
+- [Installation](#installation)
+- [Usage](#usage)
+{{ if .Framework }}- [API Documentation](#api-documentation){{ end }}
+{{ if .Config.IncludeContributing }}- [Contributing](#contributing){{ end }}
+- [License](#license)
+
+{{ end }}
+## About
+
+This project is built with {{ .PrimaryLang }}{{ if .Framework }} using the {{ .Framework.Name }} framework{{ end }}.
+
+### Technologies Used
+
+{{ range .Analysis.Languages }}
+- **{{ .Name }}**: {{ printf "%.1f" .Percentage }}% ({{ .FileCount }} files, {{ .LineCount }} lines)
+{{ end }}
+
+{{ if .Framework }}
+### Framework
+
+- **{{ .Framework.Name }}** {{ .Framework.Version }}
+- Type: {{ .Framework.Type }}
+{{ end }}
+
+{{ if .Dependencies }}
+### Key Dependencies
+
+{{ range $i, $dep := .Dependencies }}{{ if lt $i 10 }}
+- {{ $dep.Name }} ({{ $dep.Version }})
+{{ end }}{{ end }}
+{{ end }}
+
+{{ if .Config.IncludeInstallation }}
+## Installation
+
+### Prerequisites
+
+{{ if eq .PrimaryLang "Go" }}
+- Go 1.21 or higher
+{{ else if eq .PrimaryLang "Python" }}
+- Python 3.8 or higher
+{{ else if eq .PrimaryLang "JavaScript" }}
+- Node.js and npm
+{{ else if eq .PrimaryLang "TypeScript" }}
+- Node.js and npm
+{{ else if eq .PrimaryLang "Rust" }}
+- Rust and Cargo
+{{ else if eq .PrimaryLang "Java" }}
+- JDK 11 or higher
+{{ else if eq .PrimaryLang "Ruby" }}
+- Ruby and Bundler
+{{ end }}
+
+### Steps
+
+{{ if eq .PackageManager "npm" }}
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/{{ .Author }}/{{ .ProjectName }}.git
+   cd {{ .ProjectName }}
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Run the application:
+   ```bash
+   npm start
+   ```
+{{ else if eq .PackageManager "pip" }}
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/{{ .Author }}/{{ .ProjectName }}.git
+   cd {{ .ProjectName }}
+   ```
+
+2. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Run the application:
+   ```bash
+   python app.py
+   ```
+{{ else if eq .PackageManager "go modules" }}
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/{{ .Author }}/{{ .ProjectName }}.git
+   cd {{ .ProjectName }}
+   ```
+
+2. Download dependencies:
+   ```bash
+   go mod download
+   ```
+
+3. Build and run:
+   ```bash
+   go run ./cmd/{{ .ProjectName }}
+   ```
+{{ else if eq .PackageManager "cargo" }}
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/{{ .Author }}/{{ .ProjectName }}.git
+   cd {{ .ProjectName }}
+   ```
+
+2. Build and run:
+   ```bash
+   cargo run
+   ```
+{{ else }}
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/{{ .Author }}/{{ .ProjectName }}.git
+   cd {{ .ProjectName }}
+   ```
+
+2. Follow language-specific installation instructions
+{{ end }}
+{{ end }}
+
+{{ if .Config.IncludeUsage }}
+## Usage
+
+{{ if .Framework }}
+### Running the server
+
+{{ if eq .PackageManager "npm" }}
+```bash
+npm start
+```
+{{ else if eq .PackageManager "pip" }}
+```bash
+python app.py
+```
+{{ else if eq .PackageManager "go modules" }}
+```bash
+go run ./cmd/{{ .ProjectName }}
+```
+{{ end }}
+
+{{ if .Analysis.Ports }}
+The server will start on port {{ index .Analysis.Ports 0 }}.
+{{ end }}
+{{ end }}
+
+### Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+{{ if .Analysis.Ports }}PORT={{ index .Analysis.Ports 0 }}{{ else }}PORT=8080{{ end }}
+{{ if .Analysis.Database }}DATABASE_URL=your_database_connection_string{{ end }}
+# Add other environment variables as needed
+```
+{{ end }}
+
+{{ if and .Config.IncludeAPI .Framework }}
+## API Documentation
+
+{{ if .Framework.RoutesCount }}
+This application exposes {{ .Framework.RoutesCount }} API endpoints.
+{{ end }}
+
+Refer to the API documentation for detailed endpoint information.
+
+{{ end }}
+
+{{ if .Config.IncludeContributing }}
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+{{ end }}
+## License
+
+This project is licensed under the {{ .License }} License.
+
+{{ if .Author }}
+## Author
+
+{{ .Author }}
+{{ end }}
+
+---
+
+*This README was automatically generated by CodeGen Pro*

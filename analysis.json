@@ -1,0 +1,301 @@
+{
+  "project_path": ".",
+  "project_name": ".",
+  "languages": [
+    {
+      "name": "Go",
+      "version": "1.21",
+      "file_count": 16,
+      "line_count": 3871,
+      "percentage": 100,
+      "extensions": [
+        ".go"
+      ]
+    }
+  ],
+  "primary_language": "Go",
+  "dependencies": [
+    {
+      "name": "github.com/fatih/color",
+      "version": "v1.18.0",
+      "type": "runtime",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/pelletier/go-toml/v2",
+      "version": "v2.2.4",
+      "type": "runtime",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/schollz/progressbar/v3",
+      "version": "v3.19.0",
+      "type": "runtime",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/spf13/cobra",
+      "version": "v1.10.2",
+      "type": "runtime",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/spf13/viper",
+      "version": "v1.21.0",
+      "type": "runtime",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/stretchr/testify",
+      "version": "v1.11.1",
+      "type": "runtime",
+      "registry": "Go modules"
+    },
+    {
+      "name": "gopkg.in/yaml.v3",
+      "version": "v3.0.1",
+      "type": "runtime",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/davecgh/go-spew",
+      "version": "v1.1.2-0.20180830191138-d8f796af33cc",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/fsnotify/fsnotify",
+      "version": "v1.9.0",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/go-viper/mapstructure/v2",
+      "version": "v2.4.0",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/inconshreveable/mousetrap",
+      "version": "v1.1.0",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/mattn/go-colorable",
+      "version": "v0.1.13",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/mattn/go-isatty",
+      "version": "v0.0.20",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/mitchellh/colorstring",
+      "version": "v0.0.0-20190213212951-d06e56a500db",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/pmezard/go-difflib",
+      "version": "v1.0.1-0.20181226105442-5d4384ee4fb2",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/rivo/uniseg",
+      "version": "v0.4.7",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/sagikazarmark/locafero",
+      "version": "v0.11.0",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/sourcegraph/conc",
+      "version": "v0.3.1-0.20240121214520-5f936abd7ae8",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/spf13/afero",
+      "version": "v1.15.0",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/spf13/cast",
+      "version": "v1.10.0",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/spf13/pflag",
+      "version": "v1.0.10",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/subosito/gotenv",
+      "version": "v1.6.0",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "go.yaml.in/yaml/v3",
+      "version": "v3.0.4",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "golang.org/x/sys",
+      "version": "v0.29.0",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "golang.org/x/term",
+      "version": "v0.28.0",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "golang.org/x/text",
+      "version": "v0.28.0",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/gin-gonic/gin",
+      "version": "v1.9.1",
+      "type": "runtime",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/spf13/cobra",
+      "version": "v1.8.0",
+      "type": "runtime",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/spf13/viper",
+      "version": "v1.18.2",
+      "type": "runtime",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/inconshreveable/mousetrap",
+      "version": "v1.1.0",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "github.com/spf13/pflag",
+      "version": "v1.0.5",
+      "type": "dev",
+      "registry": "Go modules"
+    },
+    {
+      "name": "express",
+      "version": "^4.18.2",
+      "type": "runtime",
+      "registry": "npm"
+    },
+    {
+      "name": "dotenv",
+      "version": "^16.0.3",
+      "type": "runtime",
+      "registry": "npm"
+    },
+    {
+      "name": "mongoose",
+      "version": "^7.0.0",
+      "type": "runtime",
+      "registry": "npm"
+    },
+    {
+      "name": "jest",
+      "version": "^29.5.0",
+      "type": "dev",
+      "registry": "npm"
+    },
+    {
+      "name": "nodemon",
+      "version": "^2.0.22",
+      "type": "dev",
+      "registry": "npm"
+    },
+    {
+      "name": "flask",
+      "version": "==2.3.0",
+      "type": "runtime",
+      "registry": "PyPI"
+    },
+    {
+      "name": "requests",
+      "version": "\u003e=2.28.0",
+      "type": "runtime",
+      "registry": "PyPI"
+    },
+    {
+      "name": "python-dotenv",
+      "version": "~=1.0.0",
+      "type": "runtime",
+      "registry": "PyPI"
+    },
+    {
+      "name": "pytest",
+      "version": "==7.3.1",
+      "type": "runtime",
+      "registry": "PyPI"
+    },
+    {
+      "name": "black",
+      "version": "\u003e=23.0.0",
+      "type": "runtime",
+      "registry": "PyPI"
+    }
+  ],
+  "framework": {
+    "name": "Gin",
+    "version": "v1.9.1",
+    "type": "web",
+    "features": null,
+    "config_files": null,
+    "routes_count": 0,
+    "has_middleware": false
+  },
+  "entry_points": [
+    {
+      "path": "cmd/cli/main.go",
+      "type": "main",
+      "language": "Go",
+      "functions": null,
+      "description": ""
+    }
+  ],
+  "configuration": {},
+  "ports": [],
+  "environment": {},
+  "build_tool": "python",
+  "package_manager": "pip",
+  "file_stats": {
+    "total_files": 33,
+    "total_lines": 0,
+    "code_lines": 0,
+    "comment_lines": 0,
+    "blank_lines": 0,
+    "files_by_language": {
+      "Go": 16
+    },
+    "largest_file": "bin/codegen",
+    "largest_file_size": 8140592
+  },
+  "analyzed_at": "2026-02-12T09:14:20.269079+05:30"
+}

@@ -1,0 +1,449 @@
+# {{ .ProjectName }}
+
+{{ if .Config.IncludeBadges }}
+![License](https://img.shields.io/badge/license-{{ .License }}-blue.svg)
+{{ if .PrimaryLang }}![Language](https://img.shields.io/badge/language-{{ .PrimaryLang }}-green.svg){{ end }}
+{{ if .Version }}![Version](https://img.shields.io/badge/version-{{ .Version }}-orange.svg){{ end }}
+{{ if .BuildTool }}![Build](https://img.shields.io/badge/build-{{ .BuildTool }}-yellow.svg){{ end }}
+{{ end }}
+
+{{ if .Config.IncludeTOC }}
+## 📋 Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Configuration](#configuration)
+- [Usage](#usage)
+{{ if .Framework }}- [API Documentation](#api-documentation){{ end }}
+- [Project Structure](#project-structure)
+- [Development](#development)
+{{ if .Config.IncludeContributing }}- [Contributing](#contributing){{ end }}
+- [License](#license)
+
+{{ end }}
+## 🎯 Overview
+
+{{ if .AIDescription }}
+{{ .AIDescription }}
+{{ else }}
+{{ if .Description }}{{ .Description }}{{ else }}
+This is a {{ .PrimaryLang }} project{{ if .Framework }} built with {{ .Framework.Name }}{{ end }}.
+{{ end }}
+{{ end }}
+
+## ✨ Features
+
+{{ if .Framework }}
+{{ if eq .Framework.Type "web" }}
+- 🌐 Modern web application built with {{ .Framework.Name }}
+- 🚀 High-performance server-side rendering
+- 🔒 Built-in security best practices
+- 📱 Responsive design support
+{{ else if eq .Framework.Type "api" }}
+- 🔌 RESTful API endpoints
+- 📊 Structured data handling
+- 🔐 Authentication & authorization support
+- 📝 Comprehensive API documentation
+{{ else if eq .Framework.Type "cli" }}
+- 💻 Command-line interface
+- ⚡ Fast execution
+- 🎨 Rich terminal output
+- 📦 Easy distribution
+{{ end }}
+{{ else }}
+- 🏗️ Well-structured codebase
+- 📦 Modular architecture
+- 🧪 Comprehensive testing
+- 📚 Clear documentation
+{{ end }}
+
+## 🛠️ Tech Stack
+
+### Languages
+{{ range .Analysis.Languages }}
+- **{{ .Name }}** - {{ printf "%.1f" .Percentage }}% ({{ .FileCount }} files, {{ .LineCount }} lines of code)
+{{ end }}
+
+{{ if .Framework }}
+### Framework
+- **{{ .Framework.Name }}** {{ .Framework.Version }} - {{ .Framework.Type }} framework
+{{ end }}
+
+### Key Dependencies
+{{ if .Dependencies }}
+{{ $count := 0 }}{{ range .Dependencies }}{{ if and (eq .Type "runtime") (lt $count 15) }}
+- **{{ .Name }}** `{{ .Version }}`{{ if .Registry }} - {{ .Registry }}{{ end }}
+{{ $count = add $count 1 }}{{ end }}{{ end }}
+{{ else }}
+No external dependencies detected.
+{{ end }}
+
+### Build Tools
+{{ if .PackageManager }}- **Package Manager**: {{ .PackageManager }}{{ end }}
+{{ if .BuildTool }}- **Build Tool**: {{ .BuildTool }}{{ end }}
+
+{{ if .Config.IncludeInstallation }}
+## 🚀 Getting Started
+
+### Prerequisites
+
+{{ if eq .PrimaryLang "Go" }}
+- **Go** 1.21 or higher
+- **Git** for version control
+{{ else if eq .PrimaryLang "Python" }}
+- **Python** 3.8 or higher
+- **pip** package manager
+- **virtualenv** (recommended)
+{{ else if eq .PrimaryLang "JavaScript" }}
+- **Node.js** 18.x or higher
+- **npm** or **yarn** package manager
+{{ else if eq .PrimaryLang "TypeScript" }}
+- **Node.js** 18.x or higher
+- **npm** or **yarn** package manager
+{{ else if eq .PrimaryLang "Rust" }}
+- **Rust** 1.70 or higher (via rustup)
+- **Cargo** package manager
+{{ else if eq .PrimaryLang "Java" }}
+- **JDK** 17 or higher
+- **Maven** or **Gradle** build tool
+{{ else if eq .PrimaryLang "Ruby" }}
+- **Ruby** 3.0 or higher
+- **Bundler** gem manager
+{{ end }}
+
+### Installation
+
+{{ if eq .PackageManager "npm" }}
+#### Using npm
+
+```bash
+# Clone the repository
+git clone https://github.com/{{ .Author }}/{{ .ProjectName }}.git
+cd {{ .ProjectName }}
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your configuration
+
+# Start development server
+npm run dev
+```
+
+#### Using Docker
+
+```bash
+# Build the image
+docker build -t {{ .ProjectName }} .
+
+# Run the container
+docker run -p {{ if .Analysis.Ports }}{{ index .Analysis.Ports 0 }}{{ else }}8080{{ end }}:{{ if .Analysis.Ports }}{{ index .Analysis.Ports 0 }}{{ else }}8080{{ end }} {{ .ProjectName }}
+```
+
+{{ else if eq .PackageManager "pip" }}
+#### Using pip
+
+```bash
+# Clone the repository
+git clone https://github.com/{{ .Author }}/{{ .ProjectName }}.git
+cd {{ .ProjectName }}
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your configuration
+
+# Run the application
+python app.py
+```
+
+#### Using Docker
+
+```bash
+# Build the image
+docker build -t {{ .ProjectName }} .
+
+# Run the container
+docker run -p {{ if .Analysis.Ports }}{{ index .Analysis.Ports 0 }}{{ else }}8000{{ end }}:{{ if .Analysis.Ports }}{{ index .Analysis.Ports 0 }}{{ else }}8000{{ end }} {{ .ProjectName }}
+```
+
+{{ else if eq .PackageManager "go modules" }}
+#### Using Go
+
+```bash
+# Clone the repository
+git clone https://github.com/{{ .Author }}/{{ .ProjectName }}.git
+cd {{ .ProjectName }}
+
+# Download dependencies
+go mod download
+
+# Build the application
+go build -o bin/{{ .ProjectName }} ./cmd/...
+
+# Run the application
+./bin/{{ .ProjectName }}
+```
+
+#### Using Docker
+
+```bash
+# Build the image
+docker build -t {{ .ProjectName }} .
+
+# Run the container
+docker run -p {{ if .Analysis.Ports }}{{ index .Analysis.Ports 0 }}{{ else }}8080{{ end }}:{{ if .Analysis.Ports }}{{ index .Analysis.Ports 0 }}{{ else }}8080{{ end }} {{ .ProjectName }}
+```
+
+{{ else if eq .PackageManager "cargo" }}
+#### Using Cargo
+
+```bash
+# Clone the repository
+git clone https://github.com/{{ .Author }}/{{ .ProjectName }}.git
+cd {{ .ProjectName }}
+
+# Build and run
+cargo run
+
+# Or build release version
+cargo build --release
+./target/release/{{ .ProjectName }}
+```
+
+{{ else }}
+```bash
+# Clone the repository
+git clone https://github.com/{{ .Author }}/{{ .ProjectName }}.git
+cd {{ .ProjectName }}
+
+# Follow language-specific setup instructions
+```
+{{ end }}
+
+### Configuration
+
+Create a `.env` file in the project root:
+
+```env
+{{ if .Analysis.Ports }}# Server Configuration
+PORT={{ index .Analysis.Ports 0 }}
+HOST=0.0.0.0
+
+{{ end }}{{ if .Analysis.Database }}# Database Configuration
+DATABASE_URL=your_database_connection_string
+DB_POOL_SIZE=10
+
+{{ end }}# Environment
+NODE_ENV=development
+LOG_LEVEL=info
+
+# Add your configuration variables here
+```
+{{ end }}
+
+{{ if .Config.IncludeUsage }}
+## 📖 Usage
+
+{{ if .Framework }}
+### Running the {{ .Framework.Type }}
+
+{{ if eq .PackageManager "npm" }}
+```bash
+# Development mode with hot reload
+npm run dev
+
+# Production mode
+npm start
+
+# Run tests
+npm test
+```
+{{ else if eq .PackageManager "pip" }}
+```bash
+# Development mode
+python app.py
+
+# Production with Gunicorn
+gunicorn -w 4 -b 0.0.0.0:{{ if .Analysis.Ports }}{{ index .Analysis.Ports 0 }}{{ else }}8000{{ end }} app:app
+
+# Run tests
+pytest
+```
+{{ else if eq .PackageManager "go modules" }}
+```bash
+# Development mode
+go run ./cmd/{{ .ProjectName }}
+
+# Production
+./bin/{{ .ProjectName }}
+
+# Run tests
+go test ./...
+```
+{{ end }}
+
+{{ if .Analysis.Ports }}
+The application will be available at `http://localhost:{{ index .Analysis.Ports 0 }}`
+{{ end }}
+{{ end }}
+
+### Basic Examples
+
+```{{ .PrimaryLang | toLower }}
+# Add usage examples here
+```
+{{ end }}
+
+{{ if and .Config.IncludeAPI .Framework }}
+## 📡 API Documentation
+
+{{ if .Framework.RoutesCount }}
+This application provides {{ .Framework.RoutesCount }} API endpoints.
+{{ end }}
+
+### Endpoints
+
+*API documentation coming soon...*
+
+For detailed API documentation, visit `/api/docs` when running the application.
+{{ end }}
+
+## 📁 Project Structure
+
+```
+{{ .ProjectName }}/
+├── {{ if eq .PrimaryLang "Go" }}cmd/                    # Application entry points
+├── internal/              # Private application code
+├── pkg/                   # Public libraries
+{{ else if eq .PrimaryLang "Python" }}app/                    # Application code
+├── tests/                 # Test files
+├── requirements.txt       # Python dependencies
+{{ else if eq .PrimaryLang "JavaScript" }}src/                    # Source code
+├── tests/                 # Test files
+├── public/                # Static assets
+├── package.json           # Node dependencies
+{{ end }}├── README.md              # This file
+└── LICENSE                # License file
+```
+
+## 🔧 Development
+
+### Running Tests
+
+{{ if eq .PackageManager "npm" }}
+```bash
+npm test                # Run all tests
+npm run test:watch     # Run tests in watch mode
+npm run test:coverage  # Generate coverage report
+```
+{{ else if eq .PackageManager "pip" }}
+```bash
+pytest                 # Run all tests
+pytest -v              # Verbose output
+pytest --cov          # Generate coverage report
+```
+{{ else if eq .PackageManager "go modules" }}
+```bash
+go test ./...          # Run all tests
+go test -v ./...       # Verbose output
+go test -cover ./...   # Generate coverage report
+```
+{{ else if eq .PackageManager "cargo" }}
+```bash
+cargo test            # Run all tests
+cargo test -- --nocapture  # Show output
+```
+{{ end }}
+
+### Code Quality
+
+{{ if eq .PrimaryLang "Go" }}
+```bash
+# Format code
+go fmt ./...
+
+# Run linter
+golangci-lint run
+
+# Vet code
+go vet ./...
+```
+{{ else if eq .PrimaryLang "Python" }}
+```bash
+# Format code
+black .
+
+# Run linter
+pylint app/
+
+# Type checking
+mypy app/
+```
+{{ else if eq .PrimaryLang "JavaScript" }}
+```bash
+# Format code
+npm run format
+
+# Run linter
+npm run lint
+
+# Type checking (if TypeScript)
+npm run type-check
+```
+{{ end }}
+
+{{ if .Config.IncludeContributing }}
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'Add some amazing feature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Open** a Pull Request
+
+Please make sure to:
+- Update tests as appropriate
+- Update documentation
+- Follow the existing code style
+- Add meaningful commit messages
+
+{{ end }}
+## 📄 License
+
+This project is licensed under the **{{ .License }}** License - see the [LICENSE](LICENSE) file for details.
+
+{{ if .Author }}
+## 👤 Author
+
+**{{ .Author }}**
+
+{{ end }}
+## 🙏 Acknowledgments
+
+- Thanks to all contributors who have helped shape this project
+- Built with {{ .PrimaryLang }}{{ if .Framework }} and {{ .Framework.Name }}{{ end }}
+
+---
+
+<div align="center">
+  
+**[⬆ Back to Top](#{{ .ProjectName | toLower }})**
+
+*This README was automatically generated by CodeGen Pro with AI enhancement*
+
+</div>

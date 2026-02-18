@@ -1,0 +1,54 @@
+variable "project_name" {
+  description = "Name of the project"
+  type        = string
+  default     = "{{ .ProjectName }}"
+}
+
+variable "region" {
+  description = "Cloud region for the infrastructure"
+  type        = string
+  default     = "{{ .Region }}"
+}
+
+variable "environment" {
+  description = "Deployment environment (e.g. dev, staging, prod)"
+  type        = string
+  default     = "{{ .Environment }}"
+}
+
+variable "port" {
+  description = "Port the application listens on"
+  type        = number
+  default     = {{ .Port }}
+}
+
+variable "cpu" {
+  description = "CPU units for the service"
+  type        = number
+  default     = {{ .CPU }}
+}
+
+variable "memory" {
+  description = "Memory (in MiB) for the service"
+  type        = number
+  default     = {{ .Memory }}
+}
+
+variable "min_instances" {
+  description = "Minimum number of service instances"
+  type        = number
+  default     = {{ .MinInstances }}
+}
+
+variable "max_instances" {
+  description = "Maximum number of service instances"
+  type        = number
+  default     = {{ .MaxInstances }}
+}
+
+variable "image" {
+  description = "Container image to deploy"
+  type        = string
+  default     = "{{ .Config.Terraform.Image }}"
+}
+

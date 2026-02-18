@@ -1,0 +1,62 @@
+# Docker ignore file for <no value>
+
+# Node modules and dependencies
+node_modules
+npm-debug.log
+yarn.lock
+pnpm-lock.yaml
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Go
+bin/
+dist/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Rust
+target/
+
+# General build artifacts
+build/
+dist/
+coverage/
+.coverage
+*.log
+*.tmp
+*.swp
+*.swo
+
+# VCS
+.git
+.gitignore
+.gitattributes
+
+# IDE / editor
+.vscode/
+.idea/
+*.iml
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# OS files
+.DS_Store
+Thumbs.db
+

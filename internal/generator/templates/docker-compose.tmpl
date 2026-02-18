@@ -1,0 +1,61 @@
+version: "3.9"
+
+services:
+  app:
+    container_name: {{ .ProjectName | toLower }}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "{{ .Port }}:{{ .Port }}"
+    environment:
+      - APP_ENV=production
+    restart: unless-stopped
+
+{{- if .Database }}
+  db:
+    image: {{ .Database.Image }}
+    container_name: {{ .ProjectName | toLower }}-db
+    ports:
+      - "{{ .Database.Port }}:{{ .Database.Port }}"
+    environment:
+      - POSTGRES_DB={{ .Database.Name }}
+      - POSTGRES_USER={{ .Database.User }}
+      - POSTGRES_PASSWORD={{ .Database.Password }}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+{{- end }}
+
+{{- if .Services }}
+{{- range .Services }}
+  {{ .Name }}:
+    image: {{ .Image }}
+    {{- if .DependsOn }}
+    depends_on:
+      {{- range .DependsOn }}
+      - {{ . }}
+      {{- end }}
+    {{- end }}
+    {{- if .Environment }}
+    environment:
+      {{- range $key, $value := .Environment }}
+      - {{ $key }}={{ $value }}
+      {{- end }}
+    {{- end }}
+    {{- if .Ports }}
+    ports:
+      {{- range .Ports }}
+      - "{{ . }}"
+      {{- end }}
+    {{- end }}
+{{- end }}
+{{- end }}
+
+volumes:
+{{- if .Database }}
+  db-data:
+{{- else }}
+  app-data:
+{{- end }}
+

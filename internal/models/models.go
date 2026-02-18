@@ -1,0 +1,165 @@
+package models
+
+import "time"
+
+// AnalysisResult represents the complete analysis of a codebase
+type AnalysisResult struct {
+	ProjectPath     string                 `json:"project_path"`
+	ProjectName     string                 `json:"project_name"`
+	Languages       []LanguageInfo         `json:"languages"`
+	PrimaryLanguage string                 `json:"primary_language"`
+	Dependencies    []Dependency           `json:"dependencies"`
+	Framework       *FrameworkInfo         `json:"framework,omitempty"`
+	EntryPoints     []EntryPoint           `json:"entry_points"`
+	Configuration   map[string]interface{} `json:"configuration"`
+	Ports           []int                  `json:"ports"`
+	Environment     map[string]string      `json:"environment"`
+	Database        *DatabaseInfo          `json:"database,omitempty"`
+	BuildTool       string                 `json:"build_tool"`
+	PackageManager  string                 `json:"package_manager"`
+	TestFramework   string                 `json:"test_framework,omitempty"`
+	FileStats       FileStatistics         `json:"file_stats"`
+	AnalyzedAt      time.Time              `json:"analyzed_at"`
+}
+
+// LanguageInfo represents detected programming language information
+type LanguageInfo struct {
+	Name       string   `json:"name"`       // e.g., "Go", "Python", "JavaScript"
+	Version    string   `json:"version"`    // e.g., "1.21", "3.11", "20.0.0"
+	FileCount  int      `json:"file_count"` // Number of files in this language
+	LineCount  int      `json:"line_count"` // Total lines of code
+	Percentage float64  `json:"percentage"` // Percentage of total codebase
+	Extensions []string `json:"extensions"` // e.g., [".go", ".mod"]
+}
+
+// Dependency represents a project dependency
+type Dependency struct {
+	Name     string `json:"name"`               // Package name
+	Version  string `json:"version"`            // Version constraint or exact version
+	Type     string `json:"type"`               // "runtime", "dev", "peer", "optional"
+	Registry string `json:"registry,omitempty"` // npm, PyPI, crates.io, etc.
+}
+
+// FrameworkInfo represents detected web/application framework
+type FrameworkInfo struct {
+	Name          string   `json:"name"`           // e.g., "Express", "Django", "Gin"
+	Version       string   `json:"version"`        // Framework version
+	Type          string   `json:"type"`           // "web", "api", "cli", "desktop"
+	Features      []string `json:"features"`       // Detected features (auth, database, etc.)
+	ConfigFiles   []string `json:"config_files"`   // Framework config files found
+	RoutesCount   int      `json:"routes_count"`   // Number of detected routes/endpoints
+	HasMiddleware bool     `json:"has_middleware"` // Whether middleware is used
+}
+
+// EntryPoint represents an application entry point
+type EntryPoint struct {
+	Path        string   `json:"path"`        // File path
+	Type        string   `json:"type"`        // "main", "server", "cli", "worker"
+	Language    string   `json:"language"`    // Programming language
+	Functions   []string `json:"functions"`   // Key functions (main, serve, etc.)
+	Description string   `json:"description"` // What this entry point does
+}
+
+// DatabaseInfo represents detected database configuration
+type DatabaseInfo struct {
+	Type         string            `json:"type"`          // "postgresql", "mysql", "mongodb", etc.
+	Host         string            `json:"host"`          // Database host (if found)
+	Port         int               `json:"port"`          // Database port
+	Name         string            `json:"name"`          // Database name
+	ORM          string            `json:"orm,omitempty"` // ORM/ODM used (GORM, SQLAlchemy, etc.)
+	Migrations   bool              `json:"migrations"`    // Whether migrations are present
+	ConfigSource string            `json:"config_source"` // Where config was found
+	Credentials  map[string]string `json:"-"`             // Never serialize credentials
+}
+
+// FileStatistics represents project file statistics
+type FileStatistics struct {
+	TotalFiles      int            `json:"total_files"`
+	TotalLines      int            `json:"total_lines"`
+	CodeLines       int            `json:"code_lines"`
+	CommentLines    int            `json:"comment_lines"`
+	BlankLines      int            `json:"blank_lines"`
+	FilesByLanguage map[string]int `json:"files_by_language"`
+	LargestFile     string         `json:"largest_file"`
+	LargestFileSize int64          `json:"largest_file_size"` // in bytes
+}
+
+// ProjectConfig represents user configuration for code generation
+type ProjectConfig struct {
+	ProjectName       string          `yaml:"project_name" json:"project_name" mapstructure:"project_name"`
+	Description       string          `yaml:"description" json:"description" mapstructure:"description"`
+	Author            string          `yaml:"author" json:"author" mapstructure:"author"`
+	License           string          `yaml:"license" json:"license" mapstructure:"license"`
+	Version           string          `yaml:"version" json:"version" mapstructure:"version"`
+	GenerateREADME    bool            `yaml:"generate_readme" json:"generate_readme" mapstructure:"generate_readme"`
+	GenerateDocker    bool            `yaml:"generate_docker" json:"generate_docker" mapstructure:"generate_docker"`
+	GenerateTerraform bool            `yaml:"generate_terraform" json:"generate_terraform" mapstructure:"generate_terraform"`
+	Docker            DockerConfig    `yaml:"docker" json:"docker" mapstructure:"docker"`
+	Terraform         TerraformConfig `yaml:"terraform" json:"terraform" mapstructure:"terraform"`
+	README            READMEConfig    `yaml:"readme" json:"readme" mapstructure:"readme"`
+	IgnorePatterns    []string        `yaml:"ignore_patterns" json:"ignore_patterns" mapstructure:"ignore_patterns"`
+	AI                AIConfig        `yaml:"ai" json:"ai" mapstructure:"ai"`
+}
+
+// DockerConfig represents Docker generation configuration
+type DockerConfig struct {
+	BaseImage       string            `yaml:"base_image,omitempty" json:"base_image,omitempty" mapstructure:"base_image,omitempty"`
+	ExposePort      int               `yaml:"expose_port,omitempty" json:"expose_port,omitempty" mapstructure:"expose_port,omitempty"`
+	WorkDir         string            `yaml:"work_dir,omitempty" json:"work_dir,omitempty" mapstructure:"work_dir,omitempty"`
+	Environment     map[string]string `yaml:"environment,omitempty" json:"environment,omitempty" mapstructure:"environment,omitempty"`
+	MultiStage      bool              `yaml:"multi_stage" json:"multi_stage" mapstructure:"multi_stage"`
+	HealthCheck     bool              `yaml:"health_check" json:"health_check" mapstructure:"health_check"`
+	ComposeServices []string          `yaml:"compose_services,omitempty" json:"compose_services,omitempty" mapstructure:"compose_services,omitempty"`
+}
+
+// TerraformConfig represents Terraform generation configuration
+type TerraformConfig struct {
+	Provider     string            `yaml:"provider" json:"provider" mapstructure:"provider"`                                        // "aws", "gcp", "azure"
+	Region       string            `yaml:"region" json:"region" mapstructure:"region"`                                              // Cloud region
+	Environment  string            `yaml:"environment,omitempty" json:"environment,omitempty" mapstructure:"environment,omitempty"` // "dev", "staging", "prod"
+	CPU          int               `yaml:"cpu,omitempty" json:"cpu,omitempty" mapstructure:"cpu,omitempty"`                         // CPU units
+	Memory       int               `yaml:"memory,omitempty" json:"memory,omitempty" mapstructure:"memory,omitempty"`                // Memory in MB
+	MinInstances int               `yaml:"min_instances,omitempty" json:"min_instances,omitempty" mapstructure:"min_instances,omitempty"`
+	MaxInstances int               `yaml:"max_instances,omitempty" json:"max_instances,omitempty" mapstructure:"max_instances,omitempty"`
+	DatabaseType string            `yaml:"database_type,omitempty" json:"database_type,omitempty" mapstructure:"database_type,omitempty"`
+	Tags         map[string]string `yaml:"tags,omitempty" json:"tags,omitempty" mapstructure:"tags,omitempty"`
+}
+
+// READMEConfig represents README generation configuration
+type READMEConfig struct {
+	IncludeBadges       bool     `yaml:"include_badges" json:"include_badges" mapstructure:"include_badges"`
+	IncludeTOC          bool     `yaml:"include_toc" json:"include_toc" mapstructure:"include_toc"`
+	IncludeInstallation bool     `yaml:"include_installation" json:"include_installation" mapstructure:"include_installation"`
+	IncludeUsage        bool     `yaml:"include_usage" json:"include_usage" mapstructure:"include_usage"`
+	IncludeAPI          bool     `yaml:"include_api" json:"include_api" mapstructure:"include_api"`
+	IncludeContributing bool     `yaml:"include_contributing" json:"include_contributing" mapstructure:"include_contributing"`
+	CustomSections      []string `yaml:"custom_sections,omitempty" json:"custom_sections,omitempty" mapstructure:"custom_sections,omitempty"`
+}
+
+// AIConfig represents AI integration configuration
+type AIConfig struct {
+	Enabled  bool   `yaml:"enabled" json:"enabled" mapstructure:"enabled"`
+	Provider string `yaml:"provider,omitempty" json:"provider,omitempty" mapstructure:"provider,omitempty"` // "openai", "anthropic", "azure"
+	Model    string `yaml:"model,omitempty" json:"model,omitempty" mapstructure:"model,omitempty"`
+	APIKey   string `yaml:"api_key" json:"-" mapstructure:"api_key"` // Read from YAML, never serialize to JSON
+}
+
+// GenerationOptions represents options for file generation
+type GenerationOptions struct {
+	OutputDir      string
+	DryRun         bool
+	Overwrite      bool
+	Verbose        bool
+	Config         *ProjectConfig
+	AnalysisResult *AnalysisResult
+}
+
+// GenerationResult represents the result of file generation
+type GenerationResult struct {
+	FilesCreated  []string          `json:"files_created"`
+	FilesSkipped  []string          `json:"files_skipped"`
+	FilesModified []string          `json:"files_modified"`
+	Errors        []string          `json:"errors,omitempty"`
+	Duration      time.Duration     `json:"duration"`
+	Metadata      map[string]string `json:"metadata,omitempty"`
+}

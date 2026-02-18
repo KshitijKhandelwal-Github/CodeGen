@@ -1,0 +1,40 @@
+# Binaries
+bin/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test files
+*.test
+*.out
+coverage.out
+coverage.html
+
+# Vendor
+vendor/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Config with API keys - NEVER commit this!
+.codegen.yaml
+.env
+.env.local
+
+# Build artifacts
+dist/
+build/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
