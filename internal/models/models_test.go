@@ -111,9 +111,9 @@ func TestDatabaseInfo_NeverSerializeCredentials(t *testing.T) {
 		Port: 5432,
 		Name: "mydb",
 		Credentials: map[string]string{
-			"username": "admin",
-			"password": "secret123",
-		},
+    "username": "test_user",
+    "password": "test_password_123",
+},
 	}
 
 	// Marshal to JSON
