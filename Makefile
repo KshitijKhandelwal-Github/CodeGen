@@ -85,3 +85,24 @@ update-deps:
 	@echo "Updating dependencies..."
 	$(GO) get -u ./...
 	$(GO) mod tidy
+
+.PHONY: release
+release:
+	@echo "Building release binaries..."
+	@./scripts/build-release.sh $(VERSION)
+
+.PHONY: install
+install: build
+	@echo "Installing codegen..."
+	@mkdir -p $(HOME)/.local/bin
+	@cp bin/codegen $(HOME)/.local/bin/codegen
+	@echo "✓ Installed to $(HOME)/.local/bin/codegen"
+	@echo ""
+	@echo "Add to PATH (if not already):"
+	@echo '  export PATH="$$PATH:$$HOME/.local/bin"'
+
+.PHONY: uninstall
+uninstall:
+	@rm -f $(HOME)/.local/bin/codegen
+	@rm -f /usr/local/bin/codegen
+	@echo "✓ Uninstalled codegen"
