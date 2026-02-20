@@ -107,12 +107,25 @@ This is a Go project built with Gin.
 
 ### Installation
 
+### Quick Install (Recommended)
+
+**macOS & Linux:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/codegen-pro/main/install.sh | bash
+```
+
+**Or download manually:**
+- [macOS (Intel)](https://github.com/YOUR_USERNAME/codegen-pro/releases/latest/download/codegen-macos-amd64)
+- [macOS (Apple Silicon)](https://github.com/YOUR_USERNAME/codegen-pro/releases/latest/download/codegen-macos-arm64)
+- [Linux (amd64)](https://github.com/YOUR_USERNAME/codegen-pro/releases/latest/download/codegen-linux-amd64)
+- [Windows (amd64)](https://github.com/YOUR_USERNAME/codegen-pro/releases/latest/download/codegen-windows-amd64.exe)
+
 
 #### Using pip
 
 ```bash
 # Clone the repository
-git clone https://github.com/Kshitij Khandelwal/CodeGen.git
+git clone https://github.com/KshitijKhandelwal-Github/CodeGen.git
 cd CodeGen
 
 # Create virtual environment
@@ -138,6 +151,32 @@ docker build -t CodeGen .
 
 # Run the container
 docker run -p 8000:8000 CodeGen
+```
+
+### Verify Installation
+```bash
+codegen --version
+```
+
+### Usage
+```bash
+# Works from any directory!
+cd ~/my-project
+codegen init
+codegen generate --readme --docker
+```
+
+## 🔄 Updating
+```bash
+# Re-run install script
+curl -fsSL https://raw.githubusercontent.com/KshitijKhandelwal-Github/CodeGen/main/install.sh | bash
+```
+
+## 🗑️ Uninstalling
+```bash
+sudo rm /usr/local/bin/codegen
+# or
+rm ~/.local/bin/codegen
 ```
 
 
