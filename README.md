@@ -26,16 +26,15 @@
 
 
 ## 🎯 Overview
+CodeGen Pro is a high-performance command-line utility written in Go designed to automate and streamline the software development lifecycle through robust code generation and project scaffolding. Built on the Cobra command-line framework, the tool provides a structured, professional-grade interface for developers to manage repetitive coding tasks and standardize project architectures. While the project integrates the Gin web framework for potential service-based interactions, its primary footprint is a powerful CLI that bridges the gap between manual boilerplate creation and automated, configuration-driven development.
 
+The codebase implements several specific features designed for developer productivity and operational reliability. It features a nested CLI architecture using the Cobra library, allowing for complex command structures and sub-commands. Configuration management is handled via the Viper ecosystem, providing native support for multiple formats including TOML, YAML, and environment variables. To enhance the developer experience, the tool incorporates real-time visual feedback through interactive progress bars and color-coded terminal output. Furthermore, the project includes a comprehensive cross-platform build system via a dedicated Makefile, enabling the generation of optimized binaries for Linux, macOS (both Intel and ARM), and Windows environments.
 
-
-This is a Go project built with Gin.
+From a technical perspective, CodeGen Pro follows Go best practices by utilizing a multi-stage Docker build process to ensure minimal image sizes and secure, reproducible deployments. The architecture separates concerns by isolating the CLI entry points in the cmd directory from the core logic in internal and pkg folders, facilitating long-term maintainability. It utilizes Go 1.23 features and emphasizes performance through the use of ldflags to strip debug symbols during the build process. This tool is an ideal solution for platform engineers and backend developers who need to enforce architectural standards across a microservices ecosystem or rapidly scaffold new API components. By automating the "plumbing" of new services, CodeGen Pro allows engineering teams to maintain consistency and focus their efforts on core business logic rather than repetitive configuration.
 
 
 
 ## ✨ Features
-
-
 
 - 🌐 Modern web application built with Gin
 - 🚀 High-performance server-side rendering
@@ -107,6 +106,12 @@ This is a Go project built with Gin.
 
 ### Installation
 
+### Using homebrew (Recommended for MacOS)
+```bash
+brew tap KshitijKhandelwal-Github/tap
+brew install codegen
+```
+
 ### Quick Install (Recommended)
 
 **macOS & Linux:**
@@ -119,39 +124,6 @@ curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/codegen-pro/main/inst
 - [macOS (Apple Silicon)](https://github.com/YOUR_USERNAME/codegen-pro/releases/latest/download/codegen-macos-arm64)
 - [Linux (amd64)](https://github.com/YOUR_USERNAME/codegen-pro/releases/latest/download/codegen-linux-amd64)
 - [Windows (amd64)](https://github.com/YOUR_USERNAME/codegen-pro/releases/latest/download/codegen-windows-amd64.exe)
-
-
-#### Using pip
-
-```bash
-# Clone the repository
-git clone https://github.com/KshitijKhandelwal-Github/CodeGen.git
-cd CodeGen
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Set up environment variables
-cp .env.example .env
-# Edit .env with your configuration
-
-# Run the application
-python app.py
-```
-
-#### Using Docker
-
-```bash
-# Build the image
-docker build -t CodeGen .
-
-# Run the container
-docker run -p 8000:8000 CodeGen
-```
 
 ### Verify Installation
 ```bash
@@ -173,6 +145,14 @@ curl -fsSL https://raw.githubusercontent.com/KshitijKhandelwal-Github/CodeGen/ma
 ```
 
 ## 🗑️ Uninstalling
+
+### For Homebrew
+```bash
+brew uninstall codegen
+brew untap KshitijKhandelwal-Github/tap
+```
+
+### Other methods
 ```bash
 sudo rm /usr/local/bin/codegen
 # or
@@ -181,95 +161,27 @@ rm ~/.local/bin/codegen
 
 
 
-### Configuration
+## 📖 Basic Usage
 
-Create a `.env` file in the project root:
-
-```env
-# Environment
-NODE_ENV=development
-LOG_LEVEL=info
-
-# Add your configuration variables here
-```
-
-
-
-## 📖 Usage
-
-
-### Running the web
-
-
+### Initializing the configuration for the project
 ```bash
-# Development mode
-python app.py
-
-# Production with Gunicorn
-gunicorn -w 4 -b 0.0.0.0:8000 app:app
-
-# Run tests
-pytest
+cd ~/any-project
+codegen init
 ```
 
-
-
-
-
-### Basic Examples
-
-```go
-# Add usage examples here
-```
-
-
-
-## 📡 API Documentation
-
-
-
-### Endpoints
-
-*API documentation coming soon...*
-
-For detailed API documentation, visit `/api/docs` when running the application.
-
-
-## 📁 Project Structure
-
-```
-CodeGen/
-├── cmd/                    # Application entry points
-├── internal/              # Private application code
-├── pkg/                   # Public libraries
-├── README.md              # This file
-└── LICENSE                # License file
-```
-
-## 🔧 Development
-
-### Running Tests
-
-
+### Check CodeGen configuration for the project
 ```bash
-pytest                 # Run all tests
-pytest -v              # Verbose output
-pytest --cov          # Generate coverage report
+codegen config show
 ```
 
-
-### Code Quality
-
-
+### Generate files
 ```bash
-# Format code
-go fmt ./...
+codegen generate
+```
 
-# Run linter
-golangci-lint run
-
-# Vet code
-go vet ./...
+### For additional support and commands
+```bash
+codegen
 ```
 
 
